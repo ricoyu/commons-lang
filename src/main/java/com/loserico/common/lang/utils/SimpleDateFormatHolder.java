@@ -7,21 +7,16 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.TimeZone;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static com.loserico.common.lang.constants.DateConstants.*;
 
 /**
  * A factory for {@link SimpleDateFormat}s. The instances are stored in a threadlocal way
  * because SimpleDateFormat is not threadsafe as noted in {@link SimpleDateFormat its javadoc}.
  */
 final class SimpleDateFormatHolder {
-	
-	private static final TimeZone CHINA = TimeZone.getTimeZone("Asia/Shanghai");
-	private static final TimeZone GMT = TimeZone.getTimeZone("GMT");
-	
-	private static final Map<TimeZone, Locale> TIME_ZONE_LOCALE_HASH_MAP = new HashMap<>();
-	static {
-		TIME_ZONE_LOCALE_HASH_MAP.put(CHINA, Locale.CHINA);
-		TIME_ZONE_LOCALE_HASH_MAP.put(GMT, Locale.ENGLISH);
-	}
 	
 	private static final ThreadLocal<SoftReference<Map<String, SimpleDateFormat>>> THREADLOCAL_FORMATS =
 			new ThreadLocal<SoftReference<Map<String, SimpleDateFormat>>>();
@@ -134,8 +129,315 @@ final class SimpleDateFormatHolder {
 		return format;
 	}
 	
+	public static SimpleDateFormat getSimpleDateFormat(String source) {
+		if (matches(PT_ISO_DATETIME, source)) {
+			return SimpleDateFormatHolder.formatFor(FMT_ISO_DATETIME_1);
+		}
+		if (matches(PT_ISO_DATE, source)) {
+			return SimpleDateFormatHolder.formatFor(FMT_ISO_DATE);
+		}
+		
+		if (matches(PT_ISO_DATETIME_1, source)) {
+			return SimpleDateFormatHolder.formatFor(FMT_ISO_DATETIME_1);
+		}
+		
+		if (matches(PT_ISO_DATETIME_2, source)) {
+			return SimpleDateFormatHolder.formatFor(FMT_ISO_DATETIME_2);
+		}
+		
+		if (matches(PT_ISO_DATETIME_3, source)) {
+			return SimpleDateFormatHolder.formatFor(FMT_ISO_DATETIME_3);
+		}
+		
+		if (matches(PT_ISO_DATETIME_4, source)) {
+			return SimpleDateFormatHolder.formatFor(FMT_ISO_DATETIME_4);
+		}
+		
+		if (matches(PT_ISO_DATETIME_5, source)) {
+			return SimpleDateFormatHolder.formatFor(FMT_ISO_DATETIME_5);
+		}
+		
+		if (matches(PT_ISO_DATETIME_SHORT, source)) {
+			return SimpleDateFormatHolder.formatFor(FMT_ISO_DATETIME_SHORT);
+		}
+		
+		if (matches(PT_ISO_DATETIME_SHORT_1, source)) {
+			return SimpleDateFormatHolder.formatFor(FMT_ISO_DATETIME_SHORT_1);
+		}
+		
+		if (matches(PT_ISO_DATETIME_SHORT_2, source)) {
+			return SimpleDateFormatHolder.formatFor(FMT_ISO_DATETIME_SHORT_2);
+		}
+		
+		if (matches(PT_ISO_DATETIME_SHORT_3, source)) {
+			return SimpleDateFormatHolder.formatFor(FMT_ISO_DATETIME_SHORT_3);
+		}
+		
+		if (PT_ISO_DATETIME_SHORT_4.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_ISO_DATETIME_SHORT_4);
+		}
+		
+		if (PT_ISO_DATETIME_SHORT_5.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_ISO_DATETIME_SHORT_5);
+		}
+		
+		if (PT_ISO_DATETIME_SHORT_6.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_ISO_DATETIME_SHORT_6);
+		}
+		
+		if (PT_ISO_DATETIME_SHORT_7.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_ISO_DATETIME_SHORT_7);
+		}
+		
+		if (PT_DATETIME_FORMAT_EN.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_DATETIME_FORMAT_EN);
+		}
+		
+		if (PT_DATETIME_FORMAT_EN_1.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_DATETIME_FORMAT_EN_1);
+		}
+		
+		if (PT_DATETIME_FORMAT_EN_2.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_DATETIME_FORMAT_EN_2);
+		}
+		
+		if (PT_DATETIME_FORMAT_EN_3.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_DATETIME_FORMAT_EN_3);
+		}
+		
+		if (PT_DATETIME_FORMAT_EN_4.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_DATETIME_FORMAT_EN_4);
+		}
+		
+		if (PT_DATETIME_FORMAT_EN_5.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_DATETIME_FORMAT_EN_5);
+		}
+		
+		if (PT_DATETIME_FORMAT_EN_6.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_DATETIME_FORMAT_EN_6);
+		}
+		
+		if (PT_DATETIME_FORMAT_EN_7.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_DATETIME_FORMAT_EN_7);
+		}
+		
+		if (PT_DATETIME_FORMAT_EN_8.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_DATETIME_FORMAT_EN_8);
+		}
+		
+		if (PT_DATETIME_FORMAT_EN_9.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_DATETIME_FORMAT_EN_9);
+		}
+		
+		if (PT_ISO_DATE_1.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_ISO_DATE_1);
+		}
+		
+		if (PT_ISO_DATE_2.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_ISO_DATE_2);
+		}
+		
+		if (PT_ISO_DATE_3.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_ISO_DATE_3);
+		}
+		
+		if (PT_DATE_EN.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_DATE_FORMAT_EN);
+		}
+		
+		if (PT_DATE_EN_1.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_DATE_FORMAT_EN_1);
+		}
+		
+		if (PT_DATE_EN_2.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_DATE_FORMAT_EN_2);
+		}
+		
+		if (PT_DATE_EN_3.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_DATE_FORMAT_EN_3);
+		}
+		
+		if (PT_DATE_EN_4.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_DATE_FORMAT_EN_4);
+		}
+		
+		if (PT_DATE_EN_5.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_DATE_FORMAT_EN_5);
+		}
+		
+		if (PT_DATE_EN_6.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_DATE_FORMAT_EN_6);
+		}
+		
+		if (PT_DATE_EN_7.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_DATE_FORMAT_EN_7);
+		}
+		return null;
+	}
+	
+	public static SimpleDateFormat getSimpleDateFormat(String source, TimeZone timeZone) {
+		
+		if (PT_ISO_DATETIME.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_ISO_DATETIME_1, timeZone);
+		}
+		
+		if (PT_ISO_DATE.matcher(source).matches()) { // yyyy-MM-dd
+			return SimpleDateFormatHolder.formatFor(FMT_ISO_DATE, timeZone);
+		}
+		
+		if (PT_ISO_DATETIME_1.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_ISO_DATETIME_1, timeZone);
+		}
+		
+		if (PT_ISO_DATETIME_2.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_ISO_DATETIME_2, timeZone);
+		}
+		
+		if (PT_ISO_DATETIME_3.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_ISO_DATETIME_3, timeZone);
+		}
+		
+		if (PT_ISO_DATETIME_4.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_ISO_DATETIME_4, timeZone);
+		}
+		
+		if (PT_ISO_DATETIME_5.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_ISO_DATETIME_5, timeZone);
+		}
+		
+		if (PT_ISO_DATETIME_SHORT.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_ISO_DATETIME_SHORT, timeZone);
+		}
+		
+		if (PT_ISO_DATETIME_SHORT_1.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_ISO_DATETIME_SHORT_1, timeZone);
+		}
+		
+		if (PT_ISO_DATETIME_SHORT_2.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_ISO_DATETIME_SHORT_2, timeZone);
+		}
+		
+		if (PT_ISO_DATETIME_SHORT_3.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_ISO_DATETIME_SHORT_3, timeZone);
+		}
+		
+		if (PT_ISO_DATETIME_SHORT_4.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_ISO_DATETIME_SHORT_4, timeZone);
+		}
+		
+		if (PT_ISO_DATETIME_SHORT_5.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_ISO_DATETIME_SHORT_5, timeZone);
+		}
+		
+		if (PT_ISO_DATETIME_SHORT_6.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_ISO_DATETIME_SHORT_6, timeZone);
+		}
+		
+		if (PT_ISO_DATETIME_SHORT_7.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_ISO_DATETIME_SHORT_7, timeZone);
+		}
+		
+		if (PT_DATETIME_FORMAT_EN.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_DATETIME_FORMAT_EN, timeZone);
+		}
+		
+		if (PT_DATETIME_FORMAT_EN_1.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_DATETIME_FORMAT_EN_1, timeZone);
+		}
+		
+		if (PT_DATETIME_FORMAT_EN_2.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_DATETIME_FORMAT_EN_2, timeZone);
+		}
+		
+		if (PT_DATETIME_FORMAT_EN_3.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_DATETIME_FORMAT_EN_3, timeZone);
+		}
+		
+		if (PT_DATETIME_FORMAT_EN_4.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_DATETIME_FORMAT_EN_4, timeZone);
+		}
+		
+		if (PT_DATETIME_FORMAT_EN_5.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_DATETIME_FORMAT_EN_5, timeZone);
+		}
+		
+		if (PT_DATETIME_FORMAT_EN_6.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_DATETIME_FORMAT_EN_6, timeZone);
+		}
+		
+		if (PT_DATETIME_FORMAT_EN_7.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_DATETIME_FORMAT_EN_7, timeZone);
+		}
+		
+		if (PT_DATETIME_FORMAT_EN_8.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_DATETIME_FORMAT_EN_8, timeZone);
+		}
+		
+		if (PT_DATETIME_FORMAT_EN_9.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_DATETIME_FORMAT_EN_9, timeZone);
+		}
+		
+		if (PT_ISO_DATE_1.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_ISO_DATE_1, timeZone);
+		}
+		
+		if (PT_ISO_DATE_2.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_ISO_DATE_2, timeZone);
+		}
+		
+		if (PT_ISO_DATE_3.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_ISO_DATE_3, timeZone);
+		}
+		
+		if (PT_DATE_EN.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_DATE_FORMAT_EN, timeZone);
+		}
+		
+		if (PT_DATE_EN_1.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_DATE_FORMAT_EN_1, timeZone);
+		}
+		
+		if (PT_DATE_EN_2.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_DATE_FORMAT_EN_2, timeZone);
+		}
+		
+		if (PT_DATE_EN_3.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_DATE_FORMAT_EN_3, timeZone);
+		}
+		
+		if (PT_DATE_EN_4.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_DATE_FORMAT_EN_4, timeZone);
+		}
+		
+		if (PT_DATE_EN_5.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_DATE_FORMAT_EN_5, timeZone);
+		}
+		
+		if (PT_DATE_EN_6.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_DATE_FORMAT_EN_6, timeZone);
+		}
+		
+		if (PT_DATE_EN_7.matcher(source).matches()) {
+			return SimpleDateFormatHolder.formatFor(FMT_DATE_FORMAT_EN_7, timeZone);
+		}
+		
+		return null;
+	}
+	
 	public static void clearThreadLocal() {
 		THREADLOCAL_FORMATS.remove();
+	}
+	
+	private static boolean matches(Pattern pattern, String source) {
+		if (isBlank(source)) {
+			return false;
+		}
+		Matcher matcher = pattern.matcher(source);
+		return matcher.matches();
+	}
+	
+	private static boolean isBlank(String s) {
+		return s == null || "".equals(s.trim());
 	}
 	
 }
