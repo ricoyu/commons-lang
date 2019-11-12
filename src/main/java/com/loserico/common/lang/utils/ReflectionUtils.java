@@ -187,22 +187,6 @@ public class ReflectionUtils {
 	}
 	
 	/**
-	 * Set the {@linkplain Field field} with the given {@code name} on the provided
-	 * {@code targetObject} to the supplied {@code value}.
-	 * <p>
-	 * This method delegates to {@link #setField(Object, String, Object, Class)},
-	 * supplying {@code null} for the {@code type} argument.
-	 *
-	 * @param targetObject the target object on which to set the field; never
-	 *                     {@code null}
-	 * @param name         the name of the field to set; never {@code null}
-	 * @param value        the value to set
-	 */
-	public static void setField(Object targetObject, String name, Object value) {
-		setField(targetObject, name, value, null);
-	}
-	
-	/**
 	 * Set the {@linkplain Field field} with the given {@code name}/{@code type} on
 	 * the provided {@code targetObject} to the supplied {@code value}.
 	 * <p>
