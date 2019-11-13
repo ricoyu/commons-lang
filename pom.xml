@@ -10,7 +10,7 @@
     <parent>
         <groupId>com.loserico</groupId>
         <artifactId>sexy-uncle</artifactId>
-        <version>4.6.3</version>
+        <version>4.6.4</version>
     </parent>
 
     <dependencies>
