@@ -1,8 +1,8 @@
 package com.loserico.common.lang.hash;
 
-import java.io.UnsupportedEncodingException;
-
 import com.loserico.common.lang.exception.EncodeException;
+
+import java.io.UnsupportedEncodingException;
 
 /**
  * <p>
@@ -11,8 +11,8 @@ import com.loserico.common.lang.exception.EncodeException;
  * <p>
  * Company: Sexy Uncle Inc.
  *
+ * @author Rico Yu ricoyu520@gmail.com
  * @version 1.0
- * @author  Rico Yu ricoyu520@gmail.com
  */
 public final class HashUtils {
 	
@@ -74,5 +74,29 @@ public final class HashUtils {
 		} catch (UnsupportedEncodingException e) {
 			throw new EncodeException(e);
 		}
+	}
+	
+	
+	/**
+	 * 使用FNV1_32_HASH算法计算服务器的Hash值
+	 * https://blog.csdn.net/u010558660/article/details/52767218
+	 */
+	public static int fnvHash(String str) {
+		final int p = 16777619;
+		int hash = (int) 2166136261L;
+		for (int i = 0; i < str.length(); i++) {
+			hash = (hash ^ str.charAt(i)) * p;
+		}
+		hash += hash << 13;
+		hash ^= hash >> 7;
+		hash += hash << 3;
+		hash ^= hash >> 17;
+		hash += hash << 5;
+		
+		// 如果算出来的值为负数则取其绝对值
+		if (hash < 0) {
+			hash = Math.abs(hash);
+		}
+		return hash;
 	}
 }
