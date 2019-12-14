@@ -10,7 +10,7 @@ import java.util.List;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
-public class EnumUtils {
+public final class EnumUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(EnumUtils.class);
 
@@ -172,7 +172,7 @@ public class EnumUtils {
 	 * 泛型化的版本,支持根据多个property按顺序匹配
 	 * @param clazz
 	 * @param value
-	 * @param property
+	 * @param properties
 	 * @return T
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
