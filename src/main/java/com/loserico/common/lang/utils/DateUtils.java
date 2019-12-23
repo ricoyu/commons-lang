@@ -27,6 +27,7 @@ import static com.loserico.common.lang.constants.DateConstants.DTF_DATETIME_FORM
 import static com.loserico.common.lang.constants.DateConstants.DTF_DATETIME_FORMAT_EN_7;
 import static com.loserico.common.lang.constants.DateConstants.DTF_DATETIME_FORMAT_EN_8;
 import static com.loserico.common.lang.constants.DateConstants.DTF_DATETIME_FORMAT_EN_9;
+import static com.loserico.common.lang.constants.DateConstants.DTF_ISO_DATE;
 import static com.loserico.common.lang.constants.DateConstants.DTF_ISO_DATETIME;
 import static com.loserico.common.lang.constants.DateConstants.DTF_ISO_DATETIME_1;
 import static com.loserico.common.lang.constants.DateConstants.DTF_ISO_DATETIME_2;
@@ -53,6 +54,7 @@ import static com.loserico.common.lang.constants.DateConstants.PT_DATETIME_FORMA
 import static com.loserico.common.lang.constants.DateConstants.PT_DATETIME_FORMAT_EN_7;
 import static com.loserico.common.lang.constants.DateConstants.PT_DATETIME_FORMAT_EN_8;
 import static com.loserico.common.lang.constants.DateConstants.PT_DATETIME_FORMAT_EN_9;
+import static com.loserico.common.lang.constants.DateConstants.PT_ISO_DATE;
 import static com.loserico.common.lang.constants.DateConstants.PT_ISO_DATETIME;
 import static com.loserico.common.lang.constants.DateConstants.PT_ISO_DATETIME_1;
 import static com.loserico.common.lang.constants.DateConstants.PT_ISO_DATETIME_2;
@@ -462,6 +464,15 @@ public final class DateUtils {
 	}
 	
 	// -----------------------------------------------------------------------------------------------------------------
+	
+	public static LocalDate toLocalDate(String source) {
+		Objects.nonNull(source);
+		if (PT_ISO_DATE.matcher(source).matches()) {
+			return LocalDate.parse(source, DTF_ISO_DATE);
+		}
+		log.warn("{} does not match any LocalDate format! ", source);
+		return null;
+	}
 	
 	/**
 	 * 将Date用系统默认时区转成LocalDate
