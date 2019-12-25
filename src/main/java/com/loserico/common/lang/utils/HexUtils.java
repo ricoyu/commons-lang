@@ -1,4 +1,4 @@
-package com.loserico.common.lang.codec;
+package com.loserico.common.lang.utils;
 
 import java.math.BigInteger;
 
