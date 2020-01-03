@@ -1,5 +1,6 @@
 package com.loserico.common.lang.utils;
 
+import com.loserico.common.lang.exception.IORuntimeException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -38,6 +39,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Scanner;
+import java.util.function.Consumer;
 
 import static com.google.common.base.MoreObjects.firstNonNull;
 import static java.lang.Thread.currentThread;
@@ -298,7 +300,7 @@ public class IOUtils {
 	public static List<String> readLines(InputStream in) {
 		List<String> lines = new ArrayList<String>();
 		try (BufferedInputStream bufferedInputStream = new BufferedInputStream(in);
-			 Scanner scanner = new Scanner(bufferedInputStream)) {
+		     Scanner scanner = new Scanner(bufferedInputStream)) {
 			while (scanner.hasNextLine()) {
 				String line = scanner.nextLine();
 				lines.add(line);
@@ -308,6 +310,26 @@ public class IOUtils {
 			log.error(e.getMessage(), e);
 		}
 		return lines;
+	}
+	
+	/**
+	 * 持续从命令行读取数据并交给consumer, 收到exit或者quit退出
+	 * @param consumer
+	 */
+	public static void readCommandLine(Consumer<String> consumer) {
+		try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));) {
+			
+			while (true) {
+				String command = bufferedReader.readLine();
+				if ("quit".equalsIgnoreCase(command) || "exit".equalsIgnoreCase(command)) {
+					break;
+				}
+				consumer.accept(command);
+			}
+		} catch (IOException e) {
+			throw new IORuntimeException(e);
+		}
+		
 	}
 	
 	/**
@@ -330,7 +352,7 @@ public class IOUtils {
 	public static String readAsString(InputStream in, boolean autoClose) {
 		List<String> lines = new ArrayList<String>();
 		try (BufferedInputStream bufferedInputStream = new BufferedInputStream(in);
-			 Scanner scanner = new Scanner(bufferedInputStream)) {
+		     Scanner scanner = new Scanner(bufferedInputStream)) {
 			while (scanner.hasNextLine()) {
 				String line = scanner.nextLine();
 				lines.add(line);
@@ -485,7 +507,7 @@ public class IOUtils {
 	 * @throws IOException
 	 */
 	public static Path writeTempFile(String fileName, String suffix, String content,
-									 Charset charset) throws IOException {
+	                                 Charset charset) throws IOException {
 		Path path = tempFile(fileName, suffix).toPath();
 		write(path, content, charset);
 		return path;
