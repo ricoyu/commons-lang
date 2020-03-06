@@ -21,6 +21,8 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.regex.Pattern;
 
 /**
  * 反射工具类
@@ -70,6 +72,11 @@ public class ReflectionUtils {
 	 * 这个类声明的或者时其父类中声明的field缓存
 	 */
 	private static final Map<Class<?>, Field[]> fieldsCache = new ConcurrentReferenceHashMap<Class<?>, Field[]>(256);
+	
+	/**
+	 * 跟你fieldName查找Field对象时, 宽松模式会去掉fieldName中的 "-" "_" "空白符"
+	 */
+	private static final Pattern flaxableNamePattern = Pattern.compile("[-_\\s]");
 	
 	/**
 	 * Action to take on each method.
@@ -314,6 +321,16 @@ public class ReflectionUtils {
 	}
 	
 	/**
+	 * 去掉fieldName中的中划线"-", 下划线"_", 空白符后, 跟clazz对象中的field名字大小写不敏感匹配
+	 * @param clazz
+	 * @param fieldName
+	 * @return Field
+	 */
+	public static Field findFieldRelaxable(Class<?> clazz, String fieldName) {
+		return findFieldRelaxable(clazz, fieldName, null);
+	}
+	
+	/**
 	 * Attempt to find a {@link Field field} on the supplied {@link Class} with the
 	 * supplied {@code name} and/or {@link Class type}. Searches all superclasses up
 	 * to {@link Object}.
@@ -331,6 +348,32 @@ public class ReflectionUtils {
 			Field[] fields = getDeclaredFields(searchType);
 			for (Field field : fields) {
 				if ((name == null || name.equals(field.getName())) &&
+						(type == null || type.equals(field.getType()))) {
+					return field;
+				}
+			}
+			searchType = searchType.getSuperclass();
+		}
+		return null;
+	}
+	
+	/**
+	 * 去掉name中的中划线, 下划线, 空白符, 然后跟Field大小写不敏感匹配
+	 *
+	 * @param clazz
+	 * @param name
+	 * @param type
+	 * @return Field
+	 */
+	public static Field findFieldRelaxable(Class<?> clazz, String name, Class<?> type) {
+		Assert.notNull(clazz, "Class must not be null");
+		Assert.isTrue(name != null || type != null, "Either name or type of the field must be specified");
+		name = flaxableNamePattern.matcher(name).replaceAll("");
+		Class<?> searchType = clazz;
+		while (Object.class != searchType && searchType != null) {
+			Field[] fields = getDeclaredFields(searchType);
+			for (Field field : fields) {
+				if ((name == null || name.equalsIgnoreCase(field.getName())) &&
 						(type == null || type.equals(field.getType()))) {
 					return field;
 				}
@@ -620,6 +663,7 @@ public class ReflectionUtils {
 			throw new RuntimeException(e);
 		}
 	}
+	
 	public static <T> T invokeMethod(Object target, String methodName, Runnable arg) {
 		try {
 			Method method = target.getClass().getMethod(methodName, Runnable.class);
@@ -823,12 +867,25 @@ public class ReflectionUtils {
 	
 	/**
 	 * 调用给定完全限定类名的静态方法, 找不到给定类或者给定类没有指定方法同样抛RuntimeException
+	 *
 	 * @param className
 	 * @param methodName
 	 * @return Object
 	 */
 	public static Object invokeStatic(String className, String methodName) {
 		Class<?> clazz = getClass(className);
+		return invokeStatic(clazz, methodName);
+	}
+	
+	/**
+	 * 调用给定类的静态方法, 找不到指定方法同样抛RuntimeException
+	 *
+	 * @param clazz
+	 * @param methodName
+	 * @return Object
+	 */
+	public static Object invokeStatic(Class clazz, String methodName) {
+		Objects.requireNonNull(clazz, "clazz can not be null");
 		
 		try {
 			Method method = clazz.getMethod(methodName, null);
@@ -1229,6 +1286,7 @@ public class ReflectionUtils {
 	
 	/**
 	 * 根据完全限定类名获取Class对象, 找不到抛RuntimeException
+	 *
 	 * @param className
 	 * @return Class<?>
 	 */
