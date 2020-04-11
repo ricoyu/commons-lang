@@ -13,7 +13,6 @@ import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.text.MessageFormat;
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
@@ -32,9 +31,6 @@ public abstract class StringUtils {
 	public static final String DEFAULT_CHARSET = "UTF-8";
 	public static final Charset UTF8_CHARSET = Charset.forName(DEFAULT_CHARSET);
 	public static final String EMPTY_STRING = "";
-
-	public static final Comparator<String> nullSafeStringcomparator = Comparator
-			.nullsFirst(String::compareToIgnoreCase);
 
 	private static final Logger log = LoggerFactory.getLogger(StringUtils.class);
 

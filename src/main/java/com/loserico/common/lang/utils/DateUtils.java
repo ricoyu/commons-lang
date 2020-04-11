@@ -9,6 +9,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
@@ -746,6 +747,96 @@ public final class DateUtils {
 	public static LocalDateTime toLocalDateTimeCTT(LocalDate localDate, ZoneId zoneId) {
 		long milis = localDate.atStartOfDay(CTT).toInstant().toEpochMilli();
 		return LocalDateTime.ofInstant(Instant.ofEpochMilli(milis), CTT);
+	}
+	
+	/**
+	 * 在指定日期上+/-天数
+	 *
+	 * @param date
+	 * @param days
+	 * @return
+	 */
+	public static Date datePlus(Date date, int days) {
+		if (date == null) {
+			return null;
+		}
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.add(Calendar.DATE, days);
+		
+		return calendar.getTime();
+	}
+	
+	/**
+	 * 在指定日期上+/-小时
+	 *
+	 * @param date
+	 * @param hours
+	 * @return
+	 */
+	public static Date hourPlus(Date date, int hours) {
+		if (date == null) {
+			return null;
+		}
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.add(Calendar.HOUR_OF_DAY, hours);
+		
+		return calendar.getTime();
+	}
+	
+	/**
+	 * 在指定日期上+/-分钟
+	 *
+	 * @param date
+	 * @param minutes
+	 * @return
+	 */
+	public static Date minutePlus(Date date, int minutes) {
+		if (date == null) {
+			return null;
+		}
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.add(Calendar.MINUTE, minutes);
+		
+		return calendar.getTime();
+	}
+	
+	/**
+	 * 在指定日期上+/-秒数
+	 *
+	 * @param date
+	 * @param seconds
+	 * @return
+	 */
+	public static Date secondPlus(Date date, int seconds) {
+		if (date == null) {
+			return null;
+		}
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.add(Calendar.SECOND, seconds);
+		
+		return calendar.getTime();
+	}
+	
+	/**
+	 * 在指定日期上+/-毫秒数
+	 *
+	 * @param date
+	 * @param millis
+	 * @return
+	 */
+	public static Date milliSecondPlus(Date date, int millis) {
+		if (date == null) {
+			return null;
+		}
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.add(Calendar.MILLISECOND, millis);
+		
+		return calendar.getTime();
 	}
 	
 	private static boolean isBlank(String s) {
