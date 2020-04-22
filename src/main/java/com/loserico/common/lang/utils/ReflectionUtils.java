@@ -10,6 +10,7 @@ import org.springframework.util.MethodInvoker;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -322,6 +323,7 @@ public class ReflectionUtils {
 	
 	/**
 	 * 去掉fieldName中的中划线"-", 下划线"_", 空白符后, 跟clazz对象中的field名字大小写不敏感匹配
+	 *
 	 * @param clazz
 	 * @param fieldName
 	 * @return Field
@@ -968,6 +970,34 @@ public class ReflectionUtils {
 			return ((i > CGLIB_RENAMED_METHOD_PREFIX.length()) &&
 					(i < name.length() - 1) && name.charAt(i) == '$');
 		}
+		return false;
+	}
+	
+	/**
+	 * 检查targetClasses的任意public方法是否标注了annotationClass注解
+	 *
+	 * @param annotationClass
+	 * @param targetClasses
+	 * @return
+	 */
+	public static boolean existsAnnotation(Class<? extends Annotation> annotationClass, Class... targetClasses) {
+		if (targetClasses == null || targetClasses.length == 0) {
+			return false;
+		}
+		
+		for (Class clazz : targetClasses) {
+			if (clazz == null) {
+				continue;
+			}
+			Method[] methods = clazz.getMethods();
+			for (Method method : methods) {
+				Annotation anno = method.getAnnotation(annotationClass);
+				if (anno != null) {
+					return true;
+				}
+			}
+		}
+		
 		return false;
 	}
 	

@@ -268,37 +268,68 @@ public final class DateConstants {
 	/**
 	 * MM/dd/yyyy HH:mm:ss
 	 */
-	public static final Pattern PT_DATETIME_FORMAT_EN_5 = compile("\\d{2}/\\d{2}/\\d{4}(\\s+)\\d{1}:\\d{2}:\\d{2}");
-	public static final String FMT_DATETIME_FORMAT_EN_5 = "MM/dd/yyyy H:mm:ss";
+	public static final Pattern PT_DATETIME_FORMAT_EN_5 = compile("\\d{2}/\\d{2}/\\d{4}(\\s+)\\d{2}:\\d{2}:\\d{2}");
+	public static final String FMT_DATETIME_FORMAT_EN_5 = "MM/dd/yyyy HH:mm:ss";
 	public static final DateTimeFormatter DTF_DATETIME_FORMAT_EN_5 = ofPattern(FMT_DATETIME_FORMAT_EN_5);
 	
 	/**
 	 * yyyy/MM/dd HH:mm:ss
 	 */
-	public static final Pattern PT_DATETIME_FORMAT_EN_6 = compile("\\d{4}/\\d{2}/\\d{2}(\\s+)\\d{1}:\\d{2}:\\d{2}");
-	public static final String FMT_DATETIME_FORMAT_EN_6 = "yyyy/MM/dd H:mm:ss";
+	public static final Pattern PT_DATETIME_FORMAT_EN_6 = compile("\\d{4}/\\d{2}/\\d{2}(\\s+)\\d{2}:\\d{2}:\\d{2}");
+	public static final String FMT_DATETIME_FORMAT_EN_6 = "yyyy/MM/dd HH:mm:ss";
 	public static final DateTimeFormatter DTF_DATETIME_FORMAT_EN_6 = ofPattern(FMT_DATETIME_FORMAT_EN_6);
 	
 	/**
 	 * yyyy/MM/d HH:mm:ss
 	 */
-	public static final Pattern PT_DATETIME_FORMAT_EN_7 = compile("\\d{4}/\\d{2}/\\d{1}(\\s+)\\d{1}:\\d{2}:\\d{2}");
-	public static final String FMT_DATETIME_FORMAT_EN_7 = "yyyy/MM/d H:mm:ss";
+	public static final Pattern PT_DATETIME_FORMAT_EN_7 = compile("\\d{4}/\\d{2}/\\d{1}(\\s+)\\d{2}:\\d{2}:\\d{2}");
+	public static final String FMT_DATETIME_FORMAT_EN_7 = "yyyy/MM/d HH:mm:ss";
 	public static final DateTimeFormatter DTF_DATETIME_FORMAT_EN_7 = ofPattern(FMT_DATETIME_FORMAT_EN_7);
 	
 	/**
 	 * yyyy/M/dd HH:mm:ss
 	 */
-	public static final Pattern PT_DATETIME_FORMAT_EN_8 = compile("\\d{4}/\\d{1}/\\d{2}(\\s+)\\d{1}:\\d{2}:\\d{2}");
-	public static final String FMT_DATETIME_FORMAT_EN_8 = "yyyy/M/dd H:mm:ss";
+	public static final Pattern PT_DATETIME_FORMAT_EN_8 = compile("\\d{4}/\\d{1}/\\d{2}(\\s+)\\d{2}:\\d{2}:\\d{2}");
+	public static final String FMT_DATETIME_FORMAT_EN_8 = "yyyy/M/dd HH:mm:ss";
 	public static final DateTimeFormatter DTF_DATETIME_FORMAT_EN_8 = ofPattern(FMT_DATETIME_FORMAT_EN_8);
 	
 	/**
 	 * yyyy/M/d HH:mm:ss
 	 */
-	public static final Pattern PT_DATETIME_FORMAT_EN_9 = compile("\\d{4}/\\d{1}/\\d{1}(\\s+)\\d{1}:\\d{2}:\\d{2}");
-	public static final String FMT_DATETIME_FORMAT_EN_9 = "yyyy/M/d H:mm:ss";
+	public static final Pattern PT_DATETIME_FORMAT_EN_9 = compile("\\d{4}/\\d{1}/\\d{1}(\\s+)\\d{2}:\\d{2}:\\d{2}");
+	public static final String FMT_DATETIME_FORMAT_EN_9 = "yyyy/M/d HH:mm:ss";
 	public static final DateTimeFormatter DTF_DATETIME_FORMAT_EN_9 = ofPattern(FMT_DATETIME_FORMAT_EN_9);
+	
+	// ----------------------- 下面是时间类型 ---------------------------------------------------
+	
+	/**
+	 * HH:mm:ss
+	 */
+	public static final Pattern PT_TIME_FORMAT = compile("\\d{2}:\\d{2}:\\d{2}");
+	public static final String FMT_TIME_FORMAT = "HH:mm:ss";
+	public static final DateTimeFormatter DTF_TIME_FORMAT = ofPattern(FMT_TIME_FORMAT);
+	
+	/**
+	 * HH:mm
+	 */
+	public static final Pattern PT_TIME_FORMAT1 = compile("\\d{2}:\\d{2}");
+	public static final String FMT_TIME_FORMAT1 = "HH:mm";
+	public static final DateTimeFormatter DTF_TIME_FORMAT1 = ofPattern(FMT_TIME_FORMAT1);
+	
+	/**
+	 * H:mm:ss
+	 */
+	public static final Pattern PT_TIME_FORMAT2 = compile("\\d{1}:\\d{2}:\\d{2}");
+	public static final String FMT_TIME_FORMAT2 = "H:mm:ss";
+	public static final DateTimeFormatter DTF_TIME_FORMAT2 = ofPattern(FMT_TIME_FORMAT2);
+	
+	/**
+	 * H:mm
+	 */
+	public static final Pattern PT_TIME_FORMAT3 = compile("\\d{1}:\\d{2}");
+	public static final String FMT_TIME_FORMAT3 = "H:mm";
+	public static final DateTimeFormatter DTF_TIME_FORMAT3 = ofPattern(FMT_TIME_FORMAT3);
+	
 	
 	public static final String UTC_DATETIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 	public static final String UTC_DATETIME_FORMAT2 = "yyyy-MM-dd'T'HH:mm:ss.SSS";

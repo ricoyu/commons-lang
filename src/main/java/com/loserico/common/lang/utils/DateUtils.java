@@ -1,5 +1,6 @@
 package com.loserico.common.lang.utils;
 
+import com.loserico.common.lang.constants.DateConstants;
 import lombok.extern.slf4j.Slf4j;
 
 import java.text.MessageFormat;
@@ -8,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
@@ -749,6 +751,27 @@ public final class DateUtils {
 		return LocalDateTime.ofInstant(Instant.ofEpochMilli(milis), CTT);
 	}
 	
+	public static LocalTime toLocalTime(String source) {
+		if (isBlank(source)) {
+			return null;
+		}
+		
+		if (matches(DateConstants.PT_TIME_FORMAT, source)) {
+			return LocalTime.parse(source, DateConstants.DTF_TIME_FORMAT);
+		}
+		if (matches(DateConstants.PT_TIME_FORMAT1, source)) {
+			return LocalTime.parse(source, DateConstants.DTF_TIME_FORMAT1);
+		}
+		if (matches(DateConstants.PT_TIME_FORMAT2, source)) {
+			return LocalTime.parse(source, DateConstants.DTF_TIME_FORMAT2);
+		}
+		if (matches(DateConstants.PT_TIME_FORMAT3, source)) {
+			return LocalTime.parse(source, DateConstants.DTF_TIME_FORMAT3);
+		}
+		
+		return null;
+	}
+	
 	/**
 	 * 在指定日期上+/-天数
 	 *
@@ -837,6 +860,40 @@ public final class DateUtils {
 		calendar.add(Calendar.MILLISECOND, millis);
 		
 		return calendar.getTime();
+	}
+	
+	/**
+	 * 用默认时区将日期字符串转成1970-1-1 00:00:00以来的毫秒数
+	 *
+	 * @param source
+	 * @return long
+	 */
+	public static long toEpochMilis(String source) {
+		LocalDateTime localDateTime = toLocalDateTime(source);
+		return toEpochMilis(localDateTime);
+	}
+	
+	/**
+	 * 用指定时区将LocalDateTime转成1970-1-1 00:00:00以来的毫秒数
+	 *
+	 * @param source
+	 * @param zoneId
+	 * @return long
+	 */
+	public static long toEpochMilis(String source, ZoneId zoneId) {
+		LocalDateTime localDateTime = toLocalDateTime(source);
+		return localDateTime.atZone(zoneId).toInstant().toEpochMilli();
+	}
+	
+	/**
+	 * 用默认时区将LocalDateTime转成1970-1-1 00:00:00以来的毫秒数
+	 *
+	 * @param localDateTime
+	 * @return
+	 */
+	public static long toEpochMilis(LocalDateTime localDateTime) {
+		Objects.nonNull(localDateTime);
+		return localDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
 	}
 	
 	private static boolean isBlank(String s) {

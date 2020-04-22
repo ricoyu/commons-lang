@@ -20,7 +20,6 @@ import java.lang.reflect.WildcardType;
  */
 public final class GenericUtils {
 	
-	
 	/**
 	 * 获取cls的第一个泛型参数
 	 * @param cls
