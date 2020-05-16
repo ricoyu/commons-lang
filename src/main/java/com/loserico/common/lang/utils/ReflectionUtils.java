@@ -881,17 +881,33 @@ public class ReflectionUtils {
 	
 	/**
 	 * 调用给定类的静态方法, 找不到指定方法同样抛RuntimeException
+	 * 如果给出了args, args中不能出现值为null的参数
 	 *
 	 * @param clazz
 	 * @param methodName
 	 * @return Object
 	 */
-	public static Object invokeStatic(Class clazz, String methodName) {
+	public static Object invokeStatic(Class clazz, String methodName, Object... args) {
 		Objects.requireNonNull(clazz, "clazz can not be null");
 		
+		/**
+		 * 确定参数类型
+		 */
+		Class<?>[] parameterTypes = null;
+		if (args != null && args.length != 0) {
+			parameterTypes = new Class[args.length];
+			for (int i = 0; i < args.length; i++) {
+				Object obj = args[i];
+				if (obj == null) {
+					log.warn("第{}个参数为null, 无法确定参数类型!", i);
+					return null;
+				}
+				parameterTypes[i] = obj.getClass();
+			}
+		}
 		try {
-			Method method = clazz.getMethod(methodName, null);
-			return method.invoke(null, null);
+			Method method = clazz.getMethod(methodName, parameterTypes);
+			return method.invoke(null, args);
 		} catch (NoSuchMethodException e) {
 			String msg = "No such method " + methodName;
 			log.error(msg, e);
@@ -1331,6 +1347,25 @@ public class ReflectionUtils {
 			String msg = "No class found for " + className + ", please add jar to classpath";
 			log.error(msg, e);
 			throw new RuntimeException(msg, e);
+		}
+	}
+	
+	/**
+	 * 判断某个类是否存在
+	 * @param className
+	 * @return
+	 */
+	public static boolean existsClass(String className) {
+		if (className == null || "".equals(className.trim())) {
+			return false;
+		}
+		
+		try {
+			Class.forName(className);
+			return true;
+		} catch (ClassNotFoundException e) {
+			String msg = "No class found for " + className + ", please add jar to classpath";
+			return false;
 		}
 	}
 	

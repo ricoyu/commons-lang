@@ -17,27 +17,36 @@ import org.springframework.context.ApplicationContextAware;
  * @version 1.0
  */
 public class ApplicationContextHolder implements ApplicationContextAware {
-
+	
 	private static ApplicationContext applicationContext;
-
+	
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		ApplicationContextHolder.applicationContext = applicationContext;
 	}
-
+	
 	public static ApplicationContext getApplicationContext() {
 		return applicationContext;
 	}
-
+	
 	public static Object getBean(String beanName) {
+		if (applicationContext == null) {
+			return null;
+		}
 		return applicationContext.getBean(beanName);
 	}
-
+	
 	public static <T> T getBean(String beanName, Class<T> clazz) {
+		if (applicationContext == null) {
+			return null;
+		}
 		return applicationContext.getBean(beanName, clazz);
 	}
-
+	
 	public static <T> T getBean(Class<T> clazz) {
+		if (applicationContext == null) {
+			return null;
+		}
 		return applicationContext.getBean(clazz);
 	}
 }

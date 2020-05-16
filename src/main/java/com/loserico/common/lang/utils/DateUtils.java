@@ -19,7 +19,6 @@ import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.loserico.common.lang.constants.DateConstants.CTT;
 import static com.loserico.common.lang.constants.DateConstants.DTF_DATETIME_FORMAT_EN;
 import static com.loserico.common.lang.constants.DateConstants.DTF_DATETIME_FORMAT_EN_1;
 import static com.loserico.common.lang.constants.DateConstants.DTF_DATETIME_FORMAT_EN_2;
@@ -72,6 +71,7 @@ import static com.loserico.common.lang.constants.DateConstants.PT_ISO_DATETIME_S
 import static com.loserico.common.lang.constants.DateConstants.PT_ISO_DATETIME_SHORT_5;
 import static com.loserico.common.lang.constants.DateConstants.PT_ISO_DATETIME_SHORT_6;
 import static com.loserico.common.lang.constants.DateConstants.PT_ISO_DATETIME_SHORT_7;
+import static com.loserico.common.lang.constants.DateConstants.ZONE_ID_SHANG_HAI;
 import static com.loserico.common.lang.utils.SimpleDateFormatHolder.getSimpleDateFormat;
 import static java.time.format.DateTimeFormatter.ofPattern;
 
@@ -531,7 +531,7 @@ public final class DateUtils {
 		if (localDateTime == null) {
 			return null;
 		}
-		return localDateTime.atZone(CTT).toLocalDate();
+		return localDateTime.atZone(ZONE_ID_SHANG_HAI).toLocalDate();
 	}
 	
 	/**
@@ -559,7 +559,7 @@ public final class DateUtils {
 			return null;
 		}
 		Instant instant = date.toInstant();
-		LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, CTT);
+		LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, ZONE_ID_SHANG_HAI);
 		return localDateTime.toLocalDate();
 	}
 	
@@ -713,7 +713,27 @@ public final class DateUtils {
 			return null;
 		}
 		Instant instant = date.toInstant();
-		return LocalDateTime.ofInstant(instant, CTT);
+		return LocalDateTime.ofInstant(instant, ZONE_ID_SHANG_HAI);
+	}
+	
+	/**
+	 * 毫秒数转成LocalDateTime, 默认时区Asia/Shanghai
+	 * @param millis
+	 * @return
+	 */
+	public static LocalDateTime toLocalDateTime(long millis) {
+		Instant instant = Instant.ofEpochMilli(millis);
+		return instant.atZone(ZONE_ID_SHANG_HAI).toLocalDateTime();
+	}
+	
+	/**
+	 * 秒数转成LocalDateTime, 默认时区Asia/Shanghai
+	 * @param seconds
+	 * @return
+	 */
+	public static LocalDateTime secondsToLocalDateTime(long seconds) {
+		Instant instant = Instant.ofEpochSecond(seconds);
+		return instant.atZone(ZONE_ID_SHANG_HAI).toLocalDateTime();
 	}
 	
 	/**
@@ -747,8 +767,8 @@ public final class DateUtils {
 	 * @return LocalDateTime
 	 */
 	public static LocalDateTime toLocalDateTimeCTT(LocalDate localDate, ZoneId zoneId) {
-		long milis = localDate.atStartOfDay(CTT).toInstant().toEpochMilli();
-		return LocalDateTime.ofInstant(Instant.ofEpochMilli(milis), CTT);
+		long milis = localDate.atStartOfDay(ZONE_ID_SHANG_HAI).toInstant().toEpochMilli();
+		return LocalDateTime.ofInstant(Instant.ofEpochMilli(milis), ZONE_ID_SHANG_HAI);
 	}
 	
 	public static LocalTime toLocalTime(String source) {

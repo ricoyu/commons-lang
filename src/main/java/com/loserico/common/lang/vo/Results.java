@@ -36,7 +36,7 @@ public class Results {
 		/**
 		 * 请求接口状态码
 		 */
-		private int status = 200;
+		private String code = "200";
 		
 		/**
 		 * message表示在API调用失败的情况下详细的错误信息, 这个信息可以由客户端直接呈现给用户
@@ -61,12 +61,13 @@ public class Results {
 		
 		/**
 		 * 设置status code和message
-		 * @param status 设置请求状态代码
+		 *
+		 * @param code    设置请求状态代码
 		 * @param message 设置返回消息描述
 		 * @return
 		 */
-		public Builder status(int status, Object message) {
-			this.status = status;
+		public Builder status(String code, Object message) {
+			this.code = code;
 			this.message = message;
 			return this;
 		}
@@ -101,7 +102,7 @@ public class Results {
 		public Result build() {
 			result.setMessage(message);
 			result.setDebugMessage(debugMessage);
-			result.setStatus(status);
+			result.setCode(code);
 			
 			if (results != null) {
 				Map<String, Object> resultMap = new HashMap<>();
@@ -114,9 +115,22 @@ public class Results {
 		}
 	}
 	
-	public static Builder status(int status, Object message) {
+	/**
+	 * 设置status 200 OK
+	 * @return Builder
+	 */
+	public static Builder success() {
+		return new Builder();
+	}
+	
+	public static Builder status(String code, Object message) {
 		Builder builder = new Builder();
-		return builder.status(status, message);
+		return builder.status(code, message);
+	}
+	
+	public static Builder status(ErrorType errorType) {
+		Builder builder = new Builder();
+		return builder.status(errorType.getCode(), errorType.getMsg());
 	}
 	
 }

@@ -11,7 +11,7 @@
         <groupId>com.loserico</groupId>
         <artifactId>sexy-uncle</artifactId>
         <relativePath>../sexy-uncle/pom.xml</relativePath>
-        <version>4.6.6</version>
+        <version>4.6.7</version>
     </parent>
 
     <dependencies>

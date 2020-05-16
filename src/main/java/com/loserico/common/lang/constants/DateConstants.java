@@ -334,15 +334,24 @@ public final class DateConstants {
 	public static final String UTC_DATETIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 	public static final String UTC_DATETIME_FORMAT2 = "yyyy-MM-dd'T'HH:mm:ss.SSS";
 	
-	public static final ZoneId CTT = ZoneId.of("Asia/Shanghai");
 	
 	public static final TimeZone CHINA = TimeZone.getTimeZone("Asia/Shanghai");
 	public static final TimeZone GMT = TimeZone.getTimeZone("GMT");
+	public static final TimeZone PST = TimeZone.getTimeZone("America/Los_Angeles");
+	public static final TimeZone LONDON = TimeZone.getTimeZone("Europe/London");
+	public static final TimeZone INDIA = TimeZone.getTimeZone("Asia/Calcutta");
+	public static final TimeZone JAPAN = TimeZone.getTimeZone("Asia/Tokyo");
 	
 	public static final Map<TimeZone, Locale> TIME_ZONE_LOCALE_HASH_MAP = new HashMap<>();
 	
 	static {
 		TIME_ZONE_LOCALE_HASH_MAP.put(CHINA, Locale.CHINA);
 		TIME_ZONE_LOCALE_HASH_MAP.put(GMT, Locale.ENGLISH);
+		TIME_ZONE_LOCALE_HASH_MAP.put(PST, Locale.ENGLISH);
+		TIME_ZONE_LOCALE_HASH_MAP.put(LONDON, Locale.ENGLISH);
+		TIME_ZONE_LOCALE_HASH_MAP.put(INDIA, Locale.ENGLISH);
+		TIME_ZONE_LOCALE_HASH_MAP.put(JAPAN, Locale.JAPAN);
 	}
+	
+	public static final ZoneId ZONE_ID_SHANG_HAI = ZoneId.of("Asia/Shanghai");
 }
