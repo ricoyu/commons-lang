@@ -59,6 +59,8 @@ public class Results {
 		 */
 		private Collection<?> results;
 		
+		private Page page;
+		
 		/**
 		 * 设置status code和message
 		 *
@@ -99,6 +101,16 @@ public class Results {
 			return build();
 		}
 		
+		/**
+		 * 分页支持
+		 * @param page
+		 * @return Builder
+		 */
+		public Builder page(Page page) {
+			this.page = page;
+			return this;
+		}
+		
 		public Result build() {
 			result.setMessage(message);
 			result.setDebugMessage(debugMessage);
@@ -107,6 +119,9 @@ public class Results {
 			if (results != null) {
 				Map<String, Object> resultMap = new HashMap<>();
 				resultMap.put("items", results);
+				if (page != null) {
+					resultMap.put("page", page);
+				}
 				result.setData(resultMap);
 			} else {
 				result.setData(data);
@@ -121,6 +136,15 @@ public class Results {
 	 */
 	public static Builder success() {
 		return new Builder();
+	}
+	
+	/**
+	 * code设为"-1"
+	 * @param message
+	 * @return
+	 */
+	public static Builder message(Object message) {
+		return status("-1", message);
 	}
 	
 	public static Builder status(String code, Object message) {
