@@ -4,6 +4,7 @@ import com.google.common.base.CharMatcher;
 import com.google.common.base.Joiner;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.text.StrSubstitutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,6 +16,7 @@ import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 import java.util.function.Function;
@@ -1046,13 +1048,16 @@ public abstract class StringUtils {
 	public static String defaultString(final String str, final String defaultStr) {
 		return str == null ? defaultStr : str;
 	}
-
-	public static String format(final String template, final Long value) {
-		String replacement = (value == null ? "" : value.toString());
-		return MessageFormat.format(template, replacement);
-	}
-
+	
+	/**
+	 * 采用MessageFormat格式化template, 占位符为: {0}, {1} ...
+	 * @param template
+	 * @param values
+	 * @return
+	 */
 	public static String format(final String template, final Object... values) {
+		Assert.notNull(template, "template can not be null");
+		Assert.notNull(values, "values can not be null!");
 		Object[] replacements = new Object[values.length];
 		for (int i = 0; i < values.length; i++) {
 			Object value = values[i];
@@ -1063,5 +1068,18 @@ public abstract class StringUtils {
 			}
 		}
 		return MessageFormat.format(template, replacements);
+	}
+	
+	/**
+	 * 采用Apache commons-lang3的StrSubstitutor格式化模板, 占位符为{name}, {age}...
+	 * @param template
+	 * @param params
+	 * @return
+	 */
+	public static String format(final String template, final Map<String, Object> params) {
+		Assert.notNull(template, "template can not be null");
+		Assert.notNull(params, "params can not be null!");
+		
+		return StrSubstitutor.replace(template, params);
 	}
 }

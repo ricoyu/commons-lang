@@ -13,10 +13,10 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 
 public class MathUtils {
 	private static final Logger logger = LoggerFactory.getLogger(MathUtils.class);
-
+	
 	/**
 	 * 提供精确的加法运算。
-	 * 
+	 *
 	 * @param v1 被加数
 	 * @param v2 加数
 	 * @return 两个参数的和
@@ -26,10 +26,10 @@ public class MathUtils {
 		BigDecimal b2 = new BigDecimal(v2);
 		return b1.add(b2).setScale(precision, BigDecimal.ROUND_HALF_UP).doubleValue();
 	}
-
+	
 	/**
 	 * 提供精确的加法运算。
-	 * 
+	 *
 	 * @param v1 被加数
 	 * @param v2 加数
 	 * @return 两个参数的和
@@ -43,7 +43,7 @@ public class MathUtils {
 		}
 		return v1.add(v2).setScale(precision, BigDecimal.ROUND_HALF_UP);
 	}
-
+	
 	public static BigDecimal add(BigDecimal v1, BigDecimal v2) {
 		if (v1 == null) {
 			v1 = BigDecimal.ZERO;
@@ -53,10 +53,10 @@ public class MathUtils {
 		}
 		return v1.add(v2);
 	}
-
+	
 	/**
 	 * 对items中每个元素使用mapper进行转换并累加其值, 如果items == null 或者 items.size() == 0, 返回0
-	 * 
+	 *
 	 * @param items
 	 * @param mapper
 	 * @return BigDecimal
@@ -70,10 +70,10 @@ public class MathUtils {
 				.filter(Objects::nonNull)
 				.reduce(BigDecimal.ZERO, BigDecimal::add);
 	}
-
+	
 	/**
 	 * 如果v为null，返回0，否则返回v的绝对值
-	 * 
+	 *
 	 * @param v
 	 * @return
 	 */
@@ -83,10 +83,10 @@ public class MathUtils {
 		}
 		return v.abs();
 	}
-
+	
 	/**
 	 * 提供精确的减法运算。
-	 * 
+	 *
 	 * @param v1 被减数
 	 * @param v2 减数
 	 * @return 两个参数的差
@@ -96,10 +96,10 @@ public class MathUtils {
 		BigDecimal b2 = new BigDecimal(v2);
 		return b1.subtract(b2).setScale(precision, BigDecimal.ROUND_HALF_UP).doubleValue();
 	}
-
+	
 	/**
 	 * 提供精确的减法运算 如果v1、v2为null，认为其值为0
-	 * 
+	 *
 	 * @param v1
 	 * @param v2
 	 * @param precision
@@ -114,7 +114,7 @@ public class MathUtils {
 		}
 		return v1.subtract(v2).setScale(precision, BigDecimal.ROUND_HALF_UP);
 	}
-
+	
 	public static BigDecimal sub(BigDecimal v1, BigDecimal v2) {
 		if (v1 == null) {
 			v1 = BigDecimal.ZERO;
@@ -124,10 +124,10 @@ public class MathUtils {
 		}
 		return v1.subtract(v2);
 	}
-
+	
 	/**
 	 * 提供精确的乘法运算。
-	 * 
+	 *
 	 * @param v1 被乘数
 	 * @param v2 乘数
 	 * @return 两个参数的积
@@ -137,10 +137,10 @@ public class MathUtils {
 		BigDecimal b2 = new BigDecimal(v2);
 		return b1.multiply(b2).setScale(precision, BigDecimal.ROUND_HALF_UP).doubleValue();
 	}
-
+	
 	/**
 	 * 两数相乘，按四舍五入保留指定位数的小数
-	 * 
+	 *
 	 * @param v1
 	 * @param v2
 	 * @param precision
@@ -152,10 +152,10 @@ public class MathUtils {
 		}
 		return v1.multiply(v2).setScale(precision, BigDecimal.ROUND_HALF_UP);
 	}
-
+	
 	/**
 	 * 两数相乘，按四舍五入保留指定位数的小数
-	 * 
+	 *
 	 * @param v1
 	 * @param v2
 	 * @param precision
@@ -167,10 +167,10 @@ public class MathUtils {
 		}
 		return v1.multiply(BigDecimal.valueOf(v2)).setScale(precision, BigDecimal.ROUND_HALF_UP);
 	}
-
+	
 	/**
 	 * 测试v1是否小于v2，小数点末尾的0不计算在内
-	 * 
+	 *
 	 * @param v1
 	 * @param v2
 	 * @return
@@ -178,10 +178,10 @@ public class MathUtils {
 	public static boolean lessThan(BigDecimal v1, int v2) {
 		return lessThan(v1, BigDecimal.valueOf(v2));
 	}
-
+	
 	/**
 	 * 测试v1是否小于v2，小数点末尾的0不计算在内
-	 * 
+	 *
 	 * @param v1
 	 * @param v2
 	 * @return
@@ -189,10 +189,10 @@ public class MathUtils {
 	public static boolean lt(BigDecimal v1, int v2) {
 		return lessThan(v1, BigDecimal.valueOf(v2));
 	}
-
+	
 	/**
 	 * 测试v1是否小于等于v2，小数点末尾的0不计算在内
-	 * 
+	 *
 	 * @param v1
 	 * @param v2
 	 * @return
@@ -206,10 +206,10 @@ public class MathUtils {
 		}
 		return v1.compareTo(v2) <= 0;
 	}
-
+	
 	/**
 	 * 测试v1是否小于等于v2，小数点末尾的0不计算在内
-	 * 
+	 *
 	 * @param v1
 	 * @param v2
 	 * @return
@@ -223,10 +223,10 @@ public class MathUtils {
 		}
 		return v1.compareTo(v2) <= 0;
 	}
-
+	
 	/**
 	 * 测试v1是否小于v2，小数点末尾的0不计算在内
-	 * 
+	 *
 	 * @param v1
 	 * @param v2
 	 * @return
@@ -237,10 +237,10 @@ public class MathUtils {
 		}
 		return v1.compareTo(v2) < 0;
 	}
-
+	
 	/**
 	 * 测试v1是否小于v2，小数点末尾的0不计算在内
-	 * 
+	 *
 	 * @param v1
 	 * @param v2
 	 * @return
@@ -251,10 +251,10 @@ public class MathUtils {
 		}
 		return v1.compareTo(v2) < 0;
 	}
-
+	
 	/**
 	 * 测试v1是否等于v2，小数点末尾的0不计算在内
-	 * 
+	 *
 	 * @param v1
 	 * @param v2
 	 * @return
@@ -262,10 +262,10 @@ public class MathUtils {
 	/*	public static boolean equals(BigDecimal v1, int v2) {
 			return equals(v1, BigDecimal.valueOf(v2));
 		}*/
-
+	
 	/**
 	 * 测试v1是否等于v2，小数点末尾的0不计算在内
-	 * 
+	 *
 	 * @param v1
 	 * @param v2
 	 * @return
@@ -280,10 +280,10 @@ public class MathUtils {
 			}
 			return v1.compareTo(v2) == 0;
 		}*/
-
+	
 	/**
 	 * 测试v1是否大于v2，小数点末尾的0不计算在内
-	 * 
+	 *
 	 * @param v1
 	 * @param v2
 	 * @return
@@ -291,10 +291,10 @@ public class MathUtils {
 	public static boolean greatThan(BigDecimal v1, int v2) {
 		return greatThan(v1, BigDecimal.valueOf(v2));
 	}
-
+	
 	/**
 	 * 测试v1是否大于v2，小数点末尾的0不计算在内
-	 * 
+	 *
 	 * @param v1
 	 * @param v2
 	 * @return
@@ -302,10 +302,10 @@ public class MathUtils {
 	public static boolean gt(BigDecimal v1, int v2) {
 		return greatThan(v1, BigDecimal.valueOf(v2));
 	}
-
+	
 	/**
 	 * 测试v1是否大于v2，小数点末尾的0不计算在内
-	 * 
+	 *
 	 * @param v1
 	 * @param v2
 	 * @return
@@ -316,10 +316,10 @@ public class MathUtils {
 		}
 		return v1.compareTo(v2) > 0;
 	}
-
+	
 	/**
 	 * 测试v1是否大于v2，小数点末尾的0不计算在内
-	 * 
+	 *
 	 * @param v1
 	 * @param v2
 	 * @return
@@ -330,10 +330,10 @@ public class MathUtils {
 		}
 		return v1.compareTo(v2) > 0;
 	}
-
+	
 	/**
 	 * 测试v1是否大于等于v2，小数点末尾的0不计算在内
-	 * 
+	 *
 	 * @param v1
 	 * @param v2
 	 * @return
@@ -341,10 +341,10 @@ public class MathUtils {
 	public static boolean greatThanOrEqual(BigDecimal v1, int v2) {
 		return greatThanOrEqual(v1, BigDecimal.valueOf(v2));
 	}
-
+	
 	/**
 	 * 测试v1是否大于等于v2，小数点末尾的0不计算在内
-	 * 
+	 *
 	 * @param v1
 	 * @param v2
 	 * @return
@@ -352,10 +352,10 @@ public class MathUtils {
 	public static boolean gte(BigDecimal v1, int v2) {
 		return greatThanOrEqual(v1, BigDecimal.valueOf(v2));
 	}
-
+	
 	/**
 	 * 测试v1是否大于等于v2，小数点末尾的0不计算在内
-	 * 
+	 *
 	 * @param v1
 	 * @param v2
 	 * @return
@@ -369,10 +369,10 @@ public class MathUtils {
 		}
 		return v1.compareTo(v2) >= 0;
 	}
-
+	
 	/**
 	 * 测试v1是否大于等于v2，小数点末尾的0不计算在内
-	 * 
+	 *
 	 * @param v1
 	 * @param v2
 	 * @return
@@ -386,10 +386,10 @@ public class MathUtils {
 		}
 		return v1.compareTo(v2) >= 0;
 	}
-
+	
 	/**
 	 * 提供（相对）精确的除法运算。当发生除不尽的情况时，由scale参数指 定精度，以后的数字四舍五入。
-	 * 
+	 *
 	 * @param v1        被除数
 	 * @param v2        除数
 	 * @param precision 表示表示需要精确到小数点以后几位。
@@ -400,10 +400,10 @@ public class MathUtils {
 		BigDecimal b2 = new BigDecimal(v2);
 		return b1.divide(b2, precision, BigDecimal.ROUND_HALF_UP).doubleValue();
 	}
-
+	
 	/**
 	 * 对v进行四舍五入保留两位小数
-	 * 
+	 *
 	 * @param v
 	 * @return BigDecimal
 	 */
@@ -413,10 +413,10 @@ public class MathUtils {
 		}
 		return v.setScale(2, BigDecimal.ROUND_HALF_UP);
 	}
-
+	
 	/**
 	 * 提供精确的小数位四舍五入处理。
-	 * 
+	 *
 	 * @param v         需要四舍五入的数字
 	 * @param precision 小数点后保留几位
 	 * @return 四舍五入后的结果
@@ -435,10 +435,10 @@ public class MathUtils {
 		DecimalFormat df = new DecimalFormat(format.toString());
 		return Double.parseDouble(df.format(value));
 	}
-
+	
 	/**
 	 * 为Double类型四舍五入保留小数点后precision位
-	 * 
+	 *
 	 * @param v
 	 * @param precision
 	 * @return Double
@@ -463,7 +463,7 @@ public class MathUtils {
 		DecimalFormat df = new DecimalFormat(format.toString());
 		return Double.parseDouble(df.format(value));
 	}
-
+	
 	public static String format(Double v, int precision) {
 		if (v == null) {
 			return null;
@@ -484,10 +484,10 @@ public class MathUtils {
 		DecimalFormat df = new DecimalFormat(format.toString());
 		return df.format(value);
 	}
-
+	
 	/**
 	 * 四舍五入保留小数点后precision位
-	 * 
+	 *
 	 * @param v
 	 * @param precision
 	 * @return
@@ -509,10 +509,10 @@ public class MathUtils {
 		DecimalFormat df = new DecimalFormat(format.toString());
 		return df.format(v);
 	}
-
+	
 	/**
 	 * 四舍五入保留小数点后precision位
-	 * 
+	 *
 	 * @param v
 	 * @param precision
 	 * @return
@@ -534,7 +534,7 @@ public class MathUtils {
 		DecimalFormat df = new DecimalFormat(format.toString());
 		return df.format(v);
 	}
-
+	
 	/**
 	 * <blockquote><pre>
 	 * value1为null, value2不为null	false
@@ -542,11 +542,11 @@ public class MathUtils {
 	 * value1, value2都为null		true
 	 * 否则比较其long值
 	 * </pre></blockquote>
-	 * 
-	 * @on
+	 *
 	 * @param value1
 	 * @param value2
 	 * @return boolean
+	 * @on
 	 */
 	public static boolean longEqual(Long value1, Long value2) {
 		if (value1 == null && value2 == null) {
@@ -555,14 +555,14 @@ public class MathUtils {
 		if (value1 == null) {
 			return false;
 		}
-
+		
 		if (value2 == null) {
 			return false;
 		}
-
+		
 		return value1.longValue() == value2.longValue();
 	}
-
+	
 	/**
 	 * <blockquote><pre>
 	 * value1为null, value2不为null	false
@@ -570,27 +570,27 @@ public class MathUtils {
 	 * value1, value2都为null		false
 	 * 否则比较其long值
 	 * </pre></blockquote>
-	 * 
-	 * @on
+	 *
 	 * @param v1
 	 * @param v2
 	 * @return boolean
+	 * @on
 	 */
 	public static boolean equals(Long v1, Long v2) {
 		if (v1 == null && v2 == null) {
 			return true;
 		}
-
+		
 		if (v1 == null || v2 == null) {
 			return false;
 		}
-
+		
 		return v1.longValue() == v2.longValue();
 	}
-
+	
 	/**
 	 * 测试v1是否等于v2，小数点末尾的0不计算在内
-	 * 
+	 *
 	 * @param v1
 	 * @param v2
 	 * @return
@@ -599,16 +599,16 @@ public class MathUtils {
 		if (v1 == null && v2 == null) {
 			return true;
 		}
-
+		
 		if (v1 == null || v2 == null) {
 			return false;
 		}
 		return v1.compareTo(v2) == 0;
 	}
-
+	
 	/**
 	 * 测试在保留指定小数位后, v1是否等于v2，小数点末尾的0不计算在内
-	 * 
+	 *
 	 * @param v1
 	 * @param v2
 	 * @return
@@ -617,7 +617,7 @@ public class MathUtils {
 		if (v1 == null && v2 == null) {
 			return true;
 		}
-
+		
 		if (v1 == null || v2 == null) {
 			return false;
 		}
@@ -625,7 +625,7 @@ public class MathUtils {
 		BigDecimal svaled2 = v2.setScale(precision, BigDecimal.ROUND_HALF_UP);
 		return scaled1.compareTo(svaled2) == 0;
 	}
-
+	
 	/**
 	 * <blockquote><pre>
 	 * value1为null, value2不为null	false
@@ -633,11 +633,11 @@ public class MathUtils {
 	 * value1, value2都为null		true
 	 * 否则比较其int值
 	 * </pre></blockquote>
-	 * 
-	 * @on
+	 *
 	 * @param v1
 	 * @param v2
 	 * @return boolean
+	 * @on
 	 */
 	public static boolean equals(Integer v1, Integer v2) {
 		if (v1 == null && v2 == null) {
@@ -646,10 +646,10 @@ public class MathUtils {
 		if (v1 == null || v2 == null) {
 			return false;
 		}
-
+		
 		return v1.intValue() == v2.intValue();
 	}
-
+	
 	/**
 	 * <blockquote><pre>
 	 * value1为null, value2不为null	false
@@ -657,11 +657,11 @@ public class MathUtils {
 	 * value1, value2都为null		true
 	 * 否则比较其int值
 	 * </pre></blockquote>
-	 * 
-	 * @on
+	 *
 	 * @param v1
 	 * @param v2
 	 * @return boolean
+	 * @on
 	 */
 	public static boolean integerEqual(Integer v1, Integer v2) {
 		if (v1 == null && v2 == null) {
@@ -670,10 +670,10 @@ public class MathUtils {
 		if (v1 == null || v2 == null) {
 			return false;
 		}
-
+		
 		return v1.intValue() == v2.intValue();
 	}
-
+	
 	public static Long toLong(String value, Long... defaults) {
 		if (isBlank(value)) {
 			if (defaults == null || defaults.length == 0) {
@@ -690,28 +690,60 @@ public class MathUtils {
 			return null;
 		}
 	}
-
+	
+	public static Integer toInteger(Object value) {
+		if (value == null) {
+			return null;
+		}
+		
+		if (value instanceof Integer) {
+			return (Integer) value;
+		}
+		
+		if (value instanceof String) {
+			try {
+				return Integer.parseInt((String) value);
+			} catch (NumberFormatException e) {
+				logger.error("Convert String to Integer failed", e);
+			}
+		}
+		
+		if (value instanceof Long) {
+			return ((Long) value).intValue();
+		}
+		
+		if (value instanceof Double) {
+			return ((Double) value).intValue();
+		}
+		
+		if (value instanceof BigDecimal) {
+			return ((BigDecimal) value).intValue();
+		}
+		
+		return null;
+	}
+	
 	public static Double toDouble(Object value) {
 		if (value == null) {
 			return null;
 		}
 		
 		if (value instanceof Double) {
-			return (Double)value;
+			return (Double) value;
 		}
-
+		
 		if (value instanceof Long) {
 			return ((Long) value).doubleValue();
 		}
-
+		
 		if (value instanceof BigDecimal) {
 			return ((BigDecimal) value).doubleValue();
 		}
-
+		
 		if (value instanceof Integer) {
 			return ((Integer) value).doubleValue();
 		}
-
+		
 		if (value instanceof String) {
 			try {
 				return Double.parseDouble((String) value);
@@ -719,10 +751,10 @@ public class MathUtils {
 				logger.error("msg", e);
 			}
 		}
-
+		
 		return null;
 	}
-
+	
 	public static Double toDouble(Object value, boolean toNegative) {
 		Double v = toDouble(value);
 		if (toNegative && value != null) {
@@ -730,12 +762,12 @@ public class MathUtils {
 		}
 		return v;
 	}
-
+	
 	public static String toString(Long value) {
 		if (value == null) {
 			return null;
 		}
-
+		
 		return value.toString();
 	}
 }
